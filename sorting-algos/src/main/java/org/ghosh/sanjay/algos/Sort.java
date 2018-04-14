@@ -10,7 +10,7 @@ public interface Sort<T extends Comparable<T>>
 	 *
 	 *
 	 **/
-	public void sort();
+	public Sort<T> sort();
 	
 	/**
 	 *
@@ -19,5 +19,14 @@ public interface Sort<T extends Comparable<T>>
 	 *
 	 **/
 	public List<T> sorted();
+	
+	/**
+	 *
+	 *
+	 *
+	 *
+	 *
+	 **/
+	public T [] sortedArray();
 		
 }
