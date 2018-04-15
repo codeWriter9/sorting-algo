@@ -17,8 +17,7 @@
 	<dependency>
       <groupId>org.ghosh.sanjay.algos</groupId>
       <artifactId>utils</artifactId>
-      <version>1.0-SNAPSHOT</version>
-      <scope>test</scope>
+      <version>1.0-SNAPSHOT</version>      
     </dependency>
   </dependencies>
 </project>

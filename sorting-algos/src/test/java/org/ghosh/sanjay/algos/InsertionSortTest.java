@@ -8,6 +8,9 @@ import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
+import static org.ghosh.sanjay.algos.Utils.isNonDecreasing;
+import static org.ghosh.sanjay.algos.Utils.isLessThan;
+
 
 
 /**
@@ -56,6 +59,7 @@ public class InsertionSortTest
 	{
 		List<Integer> integers = new ArrayList<Integer>();
 		for(int count=101;count<1001;count++) integers.add(new Integer(count));
-		System.out.println(new InsertionSort<Integer>(integers.toArray(new Integer[0])).sort().sorted());		
+		for(int count=2001;count<14091;count++) integers.add(new Integer(count));
+		assertTrue(isNonDecreasing(new InsertionSort<Integer>(integers.toArray(new Integer[0])).sort().sorted()));		
 	}
 }
