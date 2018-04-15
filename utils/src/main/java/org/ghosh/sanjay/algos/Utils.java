@@ -18,4 +18,16 @@ public class Utils {
 		}
 		else return true;
 	}
+	
+	public static <T> void swap(T [] array, int index, int anotherIndex) {
+		if(array != null || array.length > max(index, anotherIndex) ) {
+			T sub = array[ index ];
+			array[ index ] = array[ anotherIndex ];
+			array[ anotherIndex ] = sub;
+		}
+	}
+
+	public static int max(int first, int second) {
+		return first >= second ? first : second;
+	}
 }

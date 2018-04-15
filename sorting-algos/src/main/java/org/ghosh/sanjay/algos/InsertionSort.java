@@ -5,6 +5,14 @@ import java.util.Arrays;
 
 import static org.ghosh.sanjay.algos.Utils.isLessThan;
 
+/**
+ *
+ * Insertion Sort
+ *
+ * The elements are inserted into the right places of an increasing 
+ * window which will ultimately encompass the entire array.
+ *
+ **/
 public class InsertionSort<T extends Comparable<T>> implements Sort<T>
 {
 	private T [] array;
@@ -13,6 +21,7 @@ public class InsertionSort<T extends Comparable<T>> implements Sort<T>
 		this.array = array;
 	}
 	
+	@Override
 	public Sort<T> sort()
 	{
 		for(int outer = 1; outer < array.length; outer++) {
@@ -27,12 +36,13 @@ public class InsertionSort<T extends Comparable<T>> implements Sort<T>
 		return this;
 	}
 	
-	
+	@Override
 	public List<T> sorted()
 	{
 		return Arrays.asList(array);
 	}	
-	
+
+	@Override
 	public T [] sortedArray()
 	{
 		return array;
