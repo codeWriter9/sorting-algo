@@ -1,5 +1,6 @@
 org\ghosh\sanjay\algos\InsertionSortTest.class
 org\ghosh\sanjay\algos\QuickSortTest.class
 org\ghosh\sanjay\algos\TestUtils.class
+org\ghosh\sanjay\algos\MergeSortTest.class
 org\ghosh\sanjay\algos\AppTest.class
 org\ghosh\sanjay\algos\SelectionSortTest.class
