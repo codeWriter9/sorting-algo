@@ -8,6 +8,9 @@ public class Utils {
 		return first.compareTo(second) < 0;	
 	}
 	
+	public static <T extends Comparable<T>> boolean isGreaterThan(T first ,T second) 	{
+		return first.compareTo(second) > 0;	
+	}
 	
 	public static <T extends Comparable<T>> boolean isNonDecreasing(List<T> list) {
 		if(list != null || list.isEmpty() == false) {
@@ -29,5 +32,9 @@ public class Utils {
 
 	public static int max(int first, int second) {
 		return first >= second ? first : second;
+	}
+	
+	public static <T> boolean inRange(T [] array, int index) {
+		return array != null && index > -1 && index < array.length ? true : false;
 	}
 }
