@@ -1,3 +1,5 @@
 # dont show class files or sure fire reports
 .class
 *Test*.xml
+*.lst
+*.jar
