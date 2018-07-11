@@ -3,3 +3,6 @@
 *Test*.xml
 *.lst
 *.jar
+*.project
+*.classpath
+**/target/**
