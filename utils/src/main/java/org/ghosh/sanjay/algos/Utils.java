@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.IntConsumer;
@@ -108,21 +107,6 @@ public class Utils {
 	 */
 	public static <T> boolean inRange(T[] array, int index) {
 		return array != null && index > -1 && index < array.length ? true : false;
-	}
-
-	/**
-	 * 
-	 * Collect the string representation of the collection provided with the
-	 * delimiter. If the delimiter is null comma would be used.
-	 * 
-	 * This method will break if the collection is null.
-	 * 
-	 * 
-	 * @return String
-	 */
-	public static <T> String collectToString(Collection<T> things, String delimiter) {
-		return things.stream().map(Object::toString).collect(
-				Collectors.joining(Optional.ofNullable(delimiter).isPresent() ? Optional.of(delimiter).get() : ","));
 	}
 
 	/**
@@ -231,13 +215,13 @@ public class Utils {
 	 * 
 	 * 
 	 * @param start
-	 * @param end 
+	 * @param end
 	 * @return Integer
 	 */
 	public static Integer sumOfNumbers(int start, int end) {
 		return range(start, end).sum();
 	}
-	
+
 	/**
 	 * 
 	 * 
@@ -305,7 +289,7 @@ public class Utils {
 			}
 		};
 	}
-	
+
 	/**
 	 * 
 	 * 
@@ -315,7 +299,7 @@ public class Utils {
 		return new BiConsumer<K, V>() {
 			public void accept(K k, V v) {
 				System.out.println(" map [" + k + "] = " + v);
-			}; 
+			};
 		};
 	}
 
@@ -336,8 +320,7 @@ public class Utils {
 	public static Consumer<String> printConsumer() {
 		return System.out::println;
 	}
-	
-	
+
 	/**
 	 * 
 	 * 
@@ -345,14 +328,14 @@ public class Utils {
 	 */
 	public static IntConsumer printIntConsumer() {
 		return new IntConsumer() {
-			
+
 			@Override
 			public void accept(int value) {
 				System.out.println(value);
 			}
 		};
 	}
-	
+
 	/**
 	 * 
 	 * 
@@ -361,7 +344,7 @@ public class Utils {
 	 */
 	public static IntSupplier mirror(final Integer value) {
 		return new IntSupplier() {
-			
+
 			@Override
 			public int getAsInt() {
 

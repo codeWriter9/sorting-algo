@@ -1,6 +1,11 @@
 package org.ghosh.sanjay.algos;
 
+import static java.util.Optional.of;
+import static java.util.Optional.ofNullable;
+import static java.util.stream.Collectors.joining;
+
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
@@ -230,6 +235,21 @@ public class XCollections {
 				System.out.println(" map [" + k + "] = " + v);
 			}
 		};
+	}
+	
+	/**
+	 * 
+	 * Collect the string representation of the collection provided with the
+	 * delimiter. If the delimiter is null comma would be used.
+	 * 
+	 * This method will break if the collection is null.
+	 * 
+	 * 
+	 * @return String
+	 */
+	public static <T> String collectToString(Collection<T> things, String delimiter) {
+		return things.stream().map(Object::toString).collect(
+				joining(ofNullable(delimiter).isPresent() ? of(delimiter).get() : ","));
 	}
 	
 	
