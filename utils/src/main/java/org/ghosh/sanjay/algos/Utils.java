@@ -1,12 +1,21 @@
 package org.ghosh.sanjay.algos;
 
+import static java.util.stream.IntStream.range;
+
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.function.BiConsumer;
+import java.util.function.Consumer;
+import java.util.function.IntConsumer;
 import java.util.function.IntPredicate;
+import java.util.function.IntSupplier;
 import java.util.function.IntUnaryOperator;
 import java.util.function.LongPredicate;
 import java.util.function.Predicate;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -182,7 +191,7 @@ public class Utils {
 	public static Long sumOfLongsDefault(Collection<Long> numbers) {
 		return numbers.stream().collect(Collectors.summingLong(Long::longValue));
 	}
-	
+
 	/**
 	 * 
 	 * 
@@ -192,9 +201,9 @@ public class Utils {
 	 * @return
 	 */
 	public static Long sumOfCollectionOfNumbers(IntUnaryOperator f, Integer maxSize) {
-		return IntStream.iterate(0, f).limit(maxSize).asLongStream().sum();		
+		return IntStream.iterate(0, f).limit(maxSize).asLongStream().sum();
 	}
-	
+
 	/**
 	 * 
 	 * 
@@ -205,7 +214,7 @@ public class Utils {
 	public static Long sumOfSquares(Integer maxSize) {
 		return sumOfCollectionOfNumbers(i -> i * i, maxSize);
 	}
-	
+
 	/**
 	 * 
 	 * 
@@ -216,19 +225,30 @@ public class Utils {
 	public static Long sumOfCubes(Integer maxSize) {
 		return sumOfCollectionOfNumbers(i -> i * i * i, maxSize);
 	}
-	
+
 	/**
 	 * 
 	 * 
 	 * 
 	 * @param start
-	 * @param end
-	 * @return
+	 * @param end 
+	 * @return Integer
 	 */
 	public static Integer sumOfNumbers(int start, int end) {
-		return IntStream.range(start, end).sum();
+		return range(start, end).sum();
 	}
 	
+	/**
+	 * 
+	 * 
+	 * 
+	 * @param end
+	 * @return Integer
+	 */
+	public static Integer sumOfNumbers(int end) {
+		return range(0, end).sum();
+	}
+
 	/**
 	 * 
 	 * 
@@ -236,9 +256,9 @@ public class Utils {
 	 * @return
 	 */
 	public static IntUnaryOperator squareOperator() {
-		return i -> i * i; 
+		return i -> i * i;
 	}
-	
+
 	/**
 	 * 
 	 * 
@@ -267,5 +287,114 @@ public class Utils {
 	 */
 	public static LongPredicate evenCheckerLong() {
 		return i -> i % 2 == 0;
+	}
+
+	/**
+	 * 
+	 * 
+	 * 
+	 * @return Consumer<Exception>
+	 */
+	public static Consumer<Exception> exceptionConsumer() {
+		return new Consumer<Exception>() {
+
+			@Override
+			public void accept(Exception t) {
+				System.err.println(t);
+
+			}
+		};
+	}
+	
+	/**
+	 * 
+	 * 
+	 * @return Consumer<String>
+	 */
+	public static <K, V> BiConsumer<K, V> mapPrintConsumer() {
+		return new BiConsumer<K, V>() {
+			public void accept(K k, V v) {
+				System.out.println(" map [" + k + "] = " + v);
+			}; 
+		};
+	}
+
+	/**
+	 * 
+	 * 
+	 * @return Consumer<String>
+	 */
+	public static <K, V> Consumer<Map.Entry<K, V>> mapEntryPrintConsumer() {
+		return System.out::println;
+	}
+
+	/**
+	 * 
+	 * 
+	 * @return Consumer<String>
+	 */
+	public static Consumer<String> printConsumer() {
+		return System.out::println;
+	}
+	
+	
+	/**
+	 * 
+	 * 
+	 * @return IntConsumer
+	 */
+	public static IntConsumer printIntConsumer() {
+		return new IntConsumer() {
+			
+			@Override
+			public void accept(int value) {
+				System.out.println(value);
+			}
+		};
+	}
+	
+	/**
+	 * 
+	 * 
+	 * @param value
+	 * @return IntSupplier
+	 */
+	public static IntSupplier mirror(final Integer value) {
+		return new IntSupplier() {
+			
+			@Override
+			public int getAsInt() {
+
+				return value;
+			}
+		};
+	}
+
+	/**
+	 * 
+	 * 
+	 * @param supplier
+	 * @param maxSize
+	 * @return List<T>
+	 */
+	public static <T> List<T> fill(Supplier<T> supplier, Integer maxSize) {
+		List<T> filler = new ArrayList<>();
+		for (int loop = 0; loop < maxSize; loop++) {
+			filler.add(supplier.get());
+		}
+		return filler;
+	}
+
+	/**
+	 * 
+	 * 
+	 * @param millis
+	 */
+	public static void sleepSafely(long millis) {
+		try {
+			Thread.sleep(millis);
+		} catch (InterruptedException e) {
+			System.err.println(e.getMessage());
+		}
 	}
 }
