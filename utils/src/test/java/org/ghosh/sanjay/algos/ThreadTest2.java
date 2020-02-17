@@ -1,6 +1,6 @@
 package org.ghosh.sanjay.algos;
 
-import static org.ghosh.sanjay.algos.Utils.fill;
+import static org.ghosh.sanjay.algos.XCollections.fill;
 
 import java.util.ArrayList;
 import java.util.List;

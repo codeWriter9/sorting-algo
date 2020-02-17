@@ -1,7 +1,7 @@
 package org.ghosh.sanjay.algos;
 
-import static org.ghosh.sanjay.algos.Utils.mapEntryPrintConsumer;
-import static org.ghosh.sanjay.algos.Utils.mapPrintConsumer;
+import static org.ghosh.sanjay.algos.XCollections.fill;
+import static org.ghosh.sanjay.algos.XCollections.mapEntryPrintConsumer;
 import static org.ghosh.sanjay.algos.XCollections.random;
 
 import java.util.ArrayList;
@@ -43,7 +43,7 @@ public class ThreadTest extends TestCase {
 	 * @return
 	 */
 	private static List<Color> color(Color color, int maxSize) {
-		return Utils.fill(new Supplier<Color>() {
+		return fill(new Supplier<Color>() {
 			@Override
 			public Color get() {
 				return color;

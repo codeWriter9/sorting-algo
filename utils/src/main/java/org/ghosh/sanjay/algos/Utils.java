@@ -2,10 +2,6 @@ package org.ghosh.sanjay.algos;
 
 import static java.util.stream.IntStream.range;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.IntConsumer;
@@ -13,12 +9,10 @@ import java.util.function.IntPredicate;
 import java.util.function.IntSupplier;
 import java.util.function.IntUnaryOperator;
 import java.util.function.LongPredicate;
-import java.util.function.Predicate;
-import java.util.function.Supplier;
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 /**
+ * 
  * 
  * 
  * 
@@ -49,24 +43,6 @@ public class Utils {
 	 */
 	public static <T extends Comparable<T>> boolean isGreaterThan(T first, T second) {
 		return first.compareTo(second) > 0;
-	}
-
-	/**
-	 * 
-	 * Checks whether or not a particular sequence of numbers is not decreasing
-	 * 
-	 * @param list
-	 * @return
-	 */
-	public static <T extends Comparable<T>> boolean isNonDecreasing(List<T> list) {
-		if (list != null || list.isEmpty() == false) {
-			for (int index = 0; index < list.size() - 1; index++) {
-				if (isLessThan(list.get(index + 1), list.get(index)))
-					return false;
-			}
-			return true;
-		} else
-			return true;
 	}
 
 	/**
@@ -107,73 +83,6 @@ public class Utils {
 	 */
 	public static <T> boolean inRange(T[] array, int index) {
 		return array != null && index > -1 && index < array.length ? true : false;
-	}
-
-	/**
-	 * 
-	 * Filtered summation of the Long Collection
-	 * 
-	 * @param numbers
-	 * @return
-	 */
-	public static Long summationLong(Collection<Long> numbers, Predicate<Long> filter) {
-		return numbers.stream().filter(filter).mapToLong(Long::longValue).sum();
-	}
-
-	/**
-	 * 
-	 * Filtered summation of the Integer Collection
-	 * 
-	 * @param numbers
-	 * @return
-	 */
-	public static Integer summationInt(Collection<Integer> numbers, Predicate<Integer> filter) {
-		return numbers.stream().filter(filter).mapToInt(Integer::intValue).sum();
-	}
-
-	/**
-	 * 
-	 * 
-	 * 
-	 * @param numbers
-	 * @return
-	 */
-	public static Long sumOfLongs(Collection<Long> numbers) {
-		return numbers.stream().reduce(0L, (partialSum, current) -> partialSum + current);
-	}
-
-	/**
-	 * 
-	 * 
-	 * 
-	 * @param numbers
-	 * @return
-	 */
-	public static Integer sumOfIntegers(Collection<Integer> numbers) {
-		return numbers.stream().reduce(0, (partialSum, current) -> partialSum + current);
-	}
-
-	/**
-	 * 
-	 * 
-	 * 
-	 * @param numbers
-	 * @return
-	 */
-	public static Integer sumOfIntegersDefault(Collection<Integer> numbers) {
-		return numbers.stream().collect(Collectors.summingInt(Integer::intValue));
-	}
-
-	/**
-	 * 
-	 * 
-	 * 
-	 * 
-	 * @param numbers
-	 * @return
-	 */
-	public static Long sumOfLongsDefault(Collection<Long> numbers) {
-		return numbers.stream().collect(Collectors.summingLong(Long::longValue));
 	}
 
 	/**
@@ -308,15 +217,6 @@ public class Utils {
 	 * 
 	 * @return Consumer<String>
 	 */
-	public static <K, V> Consumer<Map.Entry<K, V>> mapEntryPrintConsumer() {
-		return System.out::println;
-	}
-
-	/**
-	 * 
-	 * 
-	 * @return Consumer<String>
-	 */
 	public static Consumer<String> printConsumer() {
 		return System.out::println;
 	}
@@ -351,21 +251,6 @@ public class Utils {
 				return value;
 			}
 		};
-	}
-
-	/**
-	 * 
-	 * 
-	 * @param supplier
-	 * @param maxSize
-	 * @return List<T>
-	 */
-	public static <T> List<T> fill(Supplier<T> supplier, Integer maxSize) {
-		List<T> filler = new ArrayList<>();
-		for (int loop = 0; loop < maxSize; loop++) {
-			filler.add(supplier.get());
-		}
-		return filler;
 	}
 
 	/**

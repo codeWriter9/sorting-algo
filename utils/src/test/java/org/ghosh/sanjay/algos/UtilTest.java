@@ -1,8 +1,10 @@
 package org.ghosh.sanjay.algos;
 
-import java.util.ArrayList;
+import static org.ghosh.sanjay.algos.XCollections.collectToString;
+import static org.ghosh.sanjay.algos.XCollections.sumOfIntegers;
+import static org.ghosh.sanjay.algos.XCollections.sumOfLongs;
+
 import java.util.Arrays;
-import java.util.Collection;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
@@ -32,8 +34,9 @@ public class UtilTest extends TestCase {
 	 * Test the Utils to collection String
 	 * 
 	 */
-	public void testUtilsCollectionToStringNullable() {		
-		assertEquals(true, "0,1,2,3,4,5,6,7,8,9".equals(Utils.collectToString(Arrays.asList(new Integer[] {0, 1, 2, 3, 4, 5, 6, 7, 8, 9}), null)));
+	public void testUtilsCollectionToStringNullable() {
+		assertEquals(true, "0,1,2,3,4,5,6,7,8,9"
+				.equals(collectToString(Arrays.asList(new Integer[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 }), null)));
 	}
 
 	/**
@@ -41,17 +44,18 @@ public class UtilTest extends TestCase {
 	 * Test the utils to collection string where delimiter is not null
 	 * 
 	 */
-	public void testUtilsCollectionToStringNotNull() {		
-		assertEquals(true, "0|1|2|3|4|5|6|7|8|9".equals(Utils.collectToString(Arrays.asList(new Integer[] {0, 1, 2, 3, 4, 5, 6, 7, 8, 9}), "|")));
+	public void testUtilsCollectionToStringNotNull() {
+		assertEquals(true, "0|1|2|3|4|5|6|7|8|9"
+				.equals(collectToString(Arrays.asList(new Integer[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 }), "|")));
 	}
-	
+
 	/**
 	 * 
 	 * 
 	 * 
 	 */
 	public void testUtilsSummation() {
-		assertEquals(true, Utils.sumOfIntegers(Arrays.asList(new Integer [] {0, 1, 2, 3, 4, 5, 6, 7, 8, 9})).equals(45));
+		assertEquals(true, sumOfIntegers(Arrays.asList(new Integer[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 })).equals(45));
 	}
 
 	/**
@@ -60,6 +64,7 @@ public class UtilTest extends TestCase {
 	 * 
 	 */
 	public void testUtilsSummation2() {
-		assertEquals(true, Utils.sumOfLongs(Arrays.asList(new Long [] {0L, 1L, 2L, 3L, 4L, 5L, 6L, 7L, 8L, 9L})).equals(45L));
+		assertEquals(true,
+				sumOfLongs(Arrays.asList(new Long[] { 0L, 1L, 2L, 3L, 4L, 5L, 6L, 7L, 8L, 9L })).equals(45L));
 	}
 }

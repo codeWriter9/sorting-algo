@@ -1,7 +1,7 @@
 package org.ghosh.sanjay.algos;
 
 import static java.util.Arrays.asList;
-import static org.ghosh.sanjay.algos.Utils.sumOfIntegersDefault;
+import static org.ghosh.sanjay.algos.XCollections.sumOfIntegersDefault;
 import static org.ghosh.sanjay.algos.Utils.sumOfNumbers;
 
 import junit.framework.Test;
