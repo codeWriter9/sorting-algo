@@ -1,8 +1,10 @@
 package org.ghosh.sanjay.algos;
 
+import static java.util.Arrays.asList;
+import static org.ghosh.sanjay.algos.SortingAlgo.SHELL_SORT;
+import static org.ghosh.sanjay.algos.SortingFactories.sort;
 import static org.ghosh.sanjay.algos.XCollections.isNonDecreasing;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -11,9 +13,12 @@ import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
 /**
+ * 
  * Unit test for simple App.
+ * 
  */
-public class ShellSortTest extends TestCase {
+public class ShellSortTest extends TestCase implements SortTest {
+	
 	/**
 	 * Create the test case
 	 *
@@ -35,24 +40,15 @@ public class ShellSortTest extends TestCase {
 	 * Rigourous Test :-)
 	 */
 	public void testShellSortForIntegers() {
-		assertTrue(Arrays.asList(new Integer[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 })
-				.equals(new ShellSort<Integer>(new Integer[] { 2, 3, 4, 1, 9, 8, 7, 6, 5 }).sort().sorted()));
+		assertTrue(asList(sortedIntegers).equals(sort(SHELL_SORT, unsortedIntegers).sort().sorted()));
 	}
 
 	public void testShellSortForString() {
-		assertTrue(
-				Arrays.asList(new String[] { "Eight", "Five", "Four", "Nine", "One", "Seven", "Six", "Three", "Two" })
-						.equals(new ShellSort<String>(
-								new String[] { "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine" })
-										.sort().sorted()));
+		assertTrue(Arrays.asList(sortedStrings).equals(sort(SHELL_SORT, unsortedStrings).sort().sorted()));
 	}
 
 	public void testShellSortIntegerBulk() {
-		List<Integer> integers = new ArrayList<Integer>();
-		for (int count = 101; count < 1001; count++)
-			integers.add(new Integer(count));
-		for (int count = 2001; count < 14091; count++)
-			integers.add(new Integer(count));
+		List<Integer> integers = bulkLoad();
 		assertTrue(isNonDecreasing(new ShellSort<Integer>(integers.toArray(new Integer[0])).sort().sorted()));
 	}
 }
