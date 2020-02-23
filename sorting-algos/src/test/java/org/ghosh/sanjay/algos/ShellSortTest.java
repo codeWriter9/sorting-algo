@@ -1,54 +1,53 @@
 package org.ghosh.sanjay.algos;
 
+import static java.lang.invoke.MethodHandles.lookup;
 import static java.util.Arrays.asList;
 import static org.ghosh.sanjay.algos.SortingAlgo.SHELL_SORT;
 import static org.ghosh.sanjay.algos.SortingFactories.sort;
 import static org.ghosh.sanjay.algos.XCollections.isNonDecreasing;
+import static org.junit.Assert.assertTrue;
+import static org.slf4j.LoggerFactory.getLogger;
 
-import java.util.Arrays;
-import java.util.List;
-
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.slf4j.Logger;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 /**
  * 
  * Unit test for simple App.
  * 
  */
-public class ShellSortTest extends TestCase implements SortTest {
-	
-	/**
-	 * Create the test case
-	 *
-	 * @param testName
-	 *            name of the test case
-	 */
-	public ShellSortTest(String testName) {
-		super(testName);
-	}
 
-	/**
-	 * @return the suite of tests being tested
-	 */
-	public static Test suite() {
-		return new TestSuite(ShellSortTest.class);
-	}
+@ExtendWith(SpringExtension.class)
+public class ShellSortTest implements SortTest {
+
+	private static final Logger LOGGER = getLogger(lookup().lookupClass());
 
 	/**
 	 * Rigourous Test :-)
 	 */
+	@Test
 	public void testShellSortForIntegers() {
 		assertTrue(asList(sortedIntegers).equals(sort(SHELL_SORT, unsortedIntegers).sort().sorted()));
 	}
 
+	/**
+	 * 
+	 * 
+	 * 
+	 */
+	@Test
 	public void testShellSortForString() {
-		assertTrue(Arrays.asList(sortedStrings).equals(sort(SHELL_SORT, unsortedStrings).sort().sorted()));
+		assertTrue(asList(sortedStrings).equals(sort(SHELL_SORT, unsortedStrings).sort().sorted()));
 	}
 
+	/**
+	 * 
+	 * 
+	 */
+	@Test
 	public void testShellSortIntegerBulk() {
-		List<Integer> integers = bulkLoad();
-		assertTrue(isNonDecreasing(new ShellSort<Integer>(integers.toArray(new Integer[0])).sort().sorted()));
+		assertTrue(isNonDecreasing(sort(SHELL_SORT, bulkLoadIntegers()).sort().sorted()));
 	}
 }

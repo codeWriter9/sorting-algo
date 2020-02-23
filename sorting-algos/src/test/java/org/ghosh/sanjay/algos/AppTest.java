@@ -1,38 +1,30 @@
 package org.ghosh.sanjay.algos;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
+import static java.lang.invoke.MethodHandles.lookup;
+import static org.junit.Assert.assertTrue;
+import static org.slf4j.LoggerFactory.getLogger;
+
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.slf4j.Logger;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 /**
  * Unit test for simple App.
  */
-public class AppTest 
-    extends TestCase
+@ExtendWith(SpringExtension.class)
+public class AppTest
+
 {
-    /**
-     * Create the test case
-     *
-     * @param testName name of the test case
-     */
-    public AppTest( String testName )
-    {
-        super( testName );
-    }
 
-    /**
-     * @return the suite of tests being tested
-     */
-    public static Test suite()
-    {
-        return new TestSuite( AppTest.class );
-    }
+	private static final Logger LOGGER = getLogger(lookup().lookupClass());
 
-    /**
-     * Rigourous Test :-)
-     */
-    public void testApp()
-    {
-        assertTrue( true );
-    }
+	/**
+	 * Rigourous Test :-)
+	 */
+	@Test
+	public void testApp() {
+		LOGGER.info(" running App Test ");
+		assertTrue(true);
+	}
 }
