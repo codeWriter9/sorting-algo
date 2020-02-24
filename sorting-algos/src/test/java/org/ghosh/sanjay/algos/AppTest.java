@@ -24,7 +24,7 @@ public class AppTest
 	 */
 	@Test
 	public void testApp() {
-		LOGGER.info(" running App Test ");
+		LOGGER.debug(" running App Test ");
 		assertTrue(true);
 	}
 }

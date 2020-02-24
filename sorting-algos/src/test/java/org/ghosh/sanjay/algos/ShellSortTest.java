@@ -21,11 +21,12 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ExtendWith(SpringExtension.class)
 public class ShellSortTest implements SortTest {
-
+	
 	private static final Logger LOGGER = getLogger(lookup().lookupClass());
 
 	/**
-	 * Rigourous Test :-)
+	 * 
+	 * 
 	 */
 	@Test
 	public void testShellSortForIntegers() {
