@@ -343,5 +343,21 @@ public class XCollections {
 	public static <K, V> Consumer<Map.Entry<K, V>> mapEntryPrintConsumer() {
 		return System.out::println;
 	}
+	
+	/**
+	 * 
+	 * 
+	 * @param list
+	 * @return True if it is non decreasing else false
+	 */
+	public static <T extends Comparable<T>> boolean isNonDecreasing(List<T> list) {
+		Comparable<T> previous = list.get(0);
+		for(int index=1;index<list.size();index++) {
+			if(previous.compareTo(list.get(index)) > 0) {
+				return false;
+			}
+		}
+		return true;
+	}
 
 }
