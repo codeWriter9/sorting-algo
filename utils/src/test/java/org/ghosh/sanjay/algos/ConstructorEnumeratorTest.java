@@ -1,38 +1,30 @@
 package org.ghosh.sanjay.algos;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
+import static java.lang.invoke.MethodHandles.lookup;
+import static org.slf4j.LoggerFactory.getLogger;
 
-public class ConstructorEnumeratorTest extends TestCase {
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.slf4j.Logger;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+
+@ExtendWith(SpringExtension.class)
+public class ConstructorEnumeratorTest {
 	
-	/**
-	 * Create the test case
-	 *
-	 * @param testName
-	 *            name of the test case
-	 */
-	public ConstructorEnumeratorTest(String testName) {
-		super(testName);
-	}
-
-	/**
-	 * @return the suite of tests being tested
-	 */
-	public static Test suite() {
-		return new TestSuite(ConstructorEnumeratorTest.class);
-	}
+	private static final Logger LOGGER = getLogger(lookup().lookupClass());
+	
 	
 	/**
 	 * 
 	 * 
 	 * 
 	 */
-	public void testMethod() {
+	@Test
+	public void testConstructor() {
 		try {
 			ConstructorEnumerator itr = new ConstructorEnumerator("org.ghosh.sanjay.algos.ConstructorEnumerator");
 			while(itr.hasNext()) {
-				System.out.println(itr.next().toString());
+				LOGGER.error(itr.next().toString());
 			}
 		} catch (ClassNotFoundException e) {		
 			e.printStackTrace();

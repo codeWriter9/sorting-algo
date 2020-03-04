@@ -1,43 +1,33 @@
 package org.ghosh.sanjay.algos;
 
+import static java.lang.invoke.MethodHandles.lookup;
 import static java.util.concurrent.Executors.newCachedThreadPool;
 import static org.ghosh.sanjay.algos.Utils.exceptionConsumer;
+import static org.junit.Assert.assertEquals;
+import static org.slf4j.LoggerFactory.getLogger;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.slf4j.Logger;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-public class VolatilityTest extends TestCase {
+@ExtendWith(SpringExtension.class)
+public class VolatilityTest  {
+	
+	private static final Logger LOGGER = getLogger(lookup().lookupClass());
 
-	private volatile Integer VLOOP = 5;
-	private Integer LOOP = 5;
+	private volatile Integer VLOOP = 5;	
 
-	/**
-	 * Create the test case
-	 *
-	 * @param testName
-	 *            name of the test case
-	 */
-	public VolatilityTest(String testName) {
-		super(testName);
-	}
-
-	/**
-	 * @return the suite of tests being tested
-	 */
-	public static Test suite() {
-		return new TestSuite(VolatilityTest.class);
-	}
-
+	
 	public Runnable changeListener() {
 		return () -> {
 			
 			for (int loop = 0; loop < 100; loop++) {
-				System.out.println(" [" + Thread.currentThread().getName() + "] loop " + loop);
+				LOGGER.debug(" [" + Thread.currentThread().getName() + "] loop " + loop);
 				if (loop > VLOOP)
 					break;
 			}
@@ -51,7 +41,7 @@ public class VolatilityTest extends TestCase {
 			} catch (InterruptedException e) {
 			}
 			for (int loop = 0; loop < 5; loop++) {
-				System.out.println(" [" + Thread.currentThread().getName() + "] " +" incrementing VLOOP ");
+				LOGGER.debug(" [" + Thread.currentThread().getName() + "] " +" incrementing VLOOP ");
 				VLOOP = 10 + loop;
 			}
 		};
@@ -89,6 +79,7 @@ public class VolatilityTest extends TestCase {
 	 * 
 	 * 
 	 */
+	@Test
 	public void testVolatile() {
 		// create an executor service to get a cached Thread Pool
 		ExecutorService service = newCachedThreadPool();
@@ -109,6 +100,7 @@ public class VolatilityTest extends TestCase {
 	 * 
 	 * 
 	 */
+	@Test
 	public void testNonVolatile() {
 		assertEquals(true, true);
 	}

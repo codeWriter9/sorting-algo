@@ -1,10 +1,12 @@
 package org.ghosh.sanjay.algos;
 
+import static java.lang.invoke.MethodHandles.lookup;
 import static java.util.concurrent.Executors.newCachedThreadPool;
 import static java.util.concurrent.TimeUnit.SECONDS;
 import static java.util.function.Function.identity;
 import static org.ghosh.sanjay.algos.Utils.mapPrintConsumer;
 import static org.ghosh.sanjay.algos.XCollections.range;
+import static org.slf4j.LoggerFactory.getLogger;
 
 import java.util.Collection;
 import java.util.LinkedList;
@@ -14,34 +16,22 @@ import java.util.concurrent.ExecutorService;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.slf4j.Logger;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-public class ExecutionServiceTest extends TestCase {
-
-	/**
-	 * Create the test case
-	 *
-	 * @param testName
-	 *            name of the test case
-	 */
-	public ExecutionServiceTest(String testName) {
-		super(testName);
-	}
-
-	/**
-	 * @return the suite of tests being tested
-	 */
-	public static Test suite() {
-		return new TestSuite(ExecutionServiceTest.class);
-	}
+@ExtendWith(SpringExtension.class)
+public class ExecutionServiceTest {
+	
+	private static final Logger LOGGER = getLogger(lookup().lookupClass());
 
 	/**
 	 * 
 	 * 
 	 * 
 	 */
+	@Test
 	public void testRunnables() {
 		ExecutorService service = newCachedThreadPool();
 		for (Runnable command : runnables(10)) {
@@ -66,6 +56,7 @@ public class ExecutionServiceTest extends TestCase {
 	 * mapping not present.
 	 * 
 	 */
+	@Test
 	public void testMapRunnables() {
 		ExecutorService service = newCachedThreadPool();// will create a Thread only when needed and will re-use
 														// existing
@@ -108,6 +99,7 @@ public class ExecutionServiceTest extends TestCase {
 	 * @param map
 	 * @return
 	 */
+
 	private Collection<Runnable> runnables(int size, Map<Integer, Integer> map) {
 		Collection<Runnable> runnables = new LinkedList<>();
 		for (int loop = 0; loop < size; loop++)
@@ -126,7 +118,7 @@ public class ExecutionServiceTest extends TestCase {
 		return new Runnable() {
 			@Override
 			public void run() {
-				System.out.println("Running : " + runner);
+				LOGGER.info("Running : " + runner);
 			}
 		};
 	}

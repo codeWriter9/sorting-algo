@@ -1,32 +1,22 @@
 package org.ghosh.sanjay.algos;
 
-import junit.framework.Assert;
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
+import static java.lang.invoke.MethodHandles.lookup;
+import static org.junit.Assert.assertEquals;
+import static org.slf4j.LoggerFactory.getLogger;
 
-public class FactorialTest extends TestCase {
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.slf4j.Logger;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+
+@ExtendWith(SpringExtension.class)
+public class FactorialTest {
 	
-	/**
-     * Create the test case
-     *
-     * @param testName name of the test case
-     */
-    public FactorialTest( String testName )
-    {
-        super( testName );
-    }
+	private static final Logger LOGGER = getLogger(lookup().lookupClass());
 
-    /**
-     * @return the suite of tests being tested
-     */
-    public static Test suite()
-    {
-        return new TestSuite( FactorialTest.class );
-    }
-    
-    public void testFactorial() {
-    	Assert.assertEquals(true, true);
-    }
+	@Test
+	public void testFactorial() {
+		assertEquals(true, true);
+	}
 
 }

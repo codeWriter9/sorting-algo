@@ -1,9 +1,11 @@
 package org.ghosh.sanjay.algos;
 
+import static java.lang.invoke.MethodHandles.lookup;
 import static java.util.concurrent.Executors.newCachedThreadPool;
 import static org.ghosh.sanjay.algos.Utils.exceptionConsumer;
 import static org.ghosh.sanjay.algos.XCollections.intConsumer;
 import static org.ghosh.sanjay.algos.XCollections.random;
+import static org.slf4j.LoggerFactory.getLogger;
 
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
@@ -13,28 +15,17 @@ import java.util.function.Consumer;
 import java.util.function.IntConsumer;
 import java.util.function.IntSupplier;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.slf4j.Logger;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-public class NewThreadsTest extends TestCase {
 
-	/**
-	 * Create the test case
-	 *
-	 * @param testName
-	 *            name of the test case
-	 */
-	public NewThreadsTest(String testName) {
-		super(testName);
-	}
 
-	/**
-	 * @return the suite of tests being tested
-	 */
-	public static Test suite() {
-		return new TestSuite(NewThreadsTest.class);
-	}
+@ExtendWith(SpringExtension.class)
+public class NewThreadsTest {
+	
+	private static final Logger LOGGER = getLogger(lookup().lookupClass());
 
 	/**
 	 * 
@@ -113,6 +104,7 @@ public class NewThreadsTest extends TestCase {
 	 * then the suppliers are created.
 	 * 
 	 */
+	@Test
 	public void testNewThreads() {
 		// create an executor service to get a cached Thread Pool
 		ExecutorService service = newCachedThreadPool();

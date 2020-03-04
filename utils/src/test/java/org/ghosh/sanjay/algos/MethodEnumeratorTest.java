@@ -1,41 +1,32 @@
 package org.ghosh.sanjay.algos;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
+import static java.lang.invoke.MethodHandles.lookup;
+import static org.slf4j.LoggerFactory.getLogger;
 
-public class MethodEnumeratorTest extends TestCase {
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.slf4j.Logger;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-	/**
-	 * Create the test case
-	 *
-	 * @param testName
-	 *            name of the test case
-	 */
-	public MethodEnumeratorTest(String testName) {
-		super(testName);
-	}
-
-	/**
-	 * @return the suite of tests being tested
-	 */
-	public static Test suite() {
-		return new TestSuite(MethodEnumeratorTest.class);
-	}
+@ExtendWith(SpringExtension.class)
+public class MethodEnumeratorTest {
+	
+	private static final Logger LOGGER = getLogger(lookup().lookupClass());
 
 	/**
 	 * 
 	 * 
 	 * 
 	 */
+	@Test
 	public void testMethod() {
 		try {
 			MethodEnumerator itr = new MethodEnumerator("org.ghosh.sanjay.algos.MethodEnumerator");
-			while(itr.hasNext()) {
-				System.out.println(itr.next().toString());
+			while (itr.hasNext()) {
+				LOGGER.debug(itr.next().toString());
 			}
-		} catch (ClassNotFoundException e) {		
-			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			LOGGER.error(e.getMessage(), e);
 		}
 	}
 

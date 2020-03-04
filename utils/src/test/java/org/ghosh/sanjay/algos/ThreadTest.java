@@ -1,8 +1,10 @@
 package org.ghosh.sanjay.algos;
 
+import static java.lang.invoke.MethodHandles.lookup;
 import static org.ghosh.sanjay.algos.XCollections.fill;
 import static org.ghosh.sanjay.algos.XCollections.mapEntryPrintConsumer;
 import static org.ghosh.sanjay.algos.XCollections.random;
+import static org.slf4j.LoggerFactory.getLogger;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -11,29 +13,17 @@ import java.util.Map;
 import java.util.function.IntSupplier;
 import java.util.function.Supplier;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.slf4j.Logger;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-public class ThreadTest extends TestCase {
+@ExtendWith(SpringExtension.class)
+public class ThreadTest {
+	
+	private static final Logger LOGGER = getLogger(lookup().lookupClass());
 
-	/**
-	 * Create the test case
-	 *
-	 * @param testName
-	 *            name of the test case
-	 */
-	public ThreadTest(String testName) {
-		super(testName);
-	}
-
-	/**
-	 * @return the suite of tests being tested
-	 */
-	public static Test suite() {
-		return new TestSuite(ThreadTest.class);
-	}
-
+	
 	/**
 	 * 
 	 * Returns a list of Colors of the specified Size
@@ -246,7 +236,7 @@ public class ThreadTest extends TestCase {
 								}
 							}
 						}
-						System.out.println(number.number());
+						LOGGER.debug(number.number().toString());
 						lock.notifyAll();
 					}
 				}
@@ -266,7 +256,7 @@ public class ThreadTest extends TestCase {
 		return new Runnable() {
 			@Override
 			public void run() {
-				System.out.println(" Running " + x);
+				LOGGER.debug(" Running " + x);
 			}
 		};
 	}
@@ -285,10 +275,10 @@ public class ThreadTest extends TestCase {
 			@Override
 			public void run() {
 				try {
-					System.out.println(loop);
+					LOGGER.debug(loop.toString());
 					Thread.sleep(100);
 				} catch (Exception e) {
-					System.err.println(e);// Standard utility method to consume error
+					LOGGER.error(e.getMessage(), e);// Standard utility method to consume error
 
 				}
 			}
@@ -310,23 +300,23 @@ public class ThreadTest extends TestCase {
 		return new Runnable() {
 			@Override
 			public void run() {
-				System.out.println(" Runnable " + loop);
+				LOGGER.debug(" Runnable " + loop);
 				try {
-					System.out.println(" [waiting for lock] Runnable " + loop + ":" + lock1);
+					LOGGER.debug(" [waiting for lock] Runnable " + loop + ":" + lock1);
 					synchronized (lock1) {
-						System.out.println(" [synchronized][waiting for lock] Runnable " + loop + ":" + lock1);
+						LOGGER.debug(" [synchronized][waiting for lock] Runnable " + loop + ":" + lock1);
 						lock1.wait();
 					}
 
-					System.out.println("[" + loop + "]");
+					LOGGER.debug("[" + loop + "]");
 
-					System.out.println(" [notifying] Runnable " + loop + ":" + lock2);
+					LOGGER.debug(" [notifying] Runnable " + loop + ":" + lock2);
 					synchronized (lock2) {
-						System.out.println(" [synchronized][notifying] Runnable " + loop + ":" + lock2);
+						LOGGER.debug(" [synchronized][notifying] Runnable " + loop + ":" + lock2);
 						lock2.notify();
 					}
 				} catch (Exception e) {
-					System.err.println(e);// Standard utility method to consume error
+					LOGGER.error(e.getMessage(), e);// Standard utility method to consume error
 
 				}
 			}
@@ -358,6 +348,7 @@ public class ThreadTest extends TestCase {
 	 * Test unordered Wait and Notify
 	 * 
 	 */
+	@Test
 	public void testUnOrderedWaitNotify() {
 		Thread[] thread = new Thread[10];
 		Object lock = new Object();
@@ -381,6 +372,7 @@ public class ThreadTest extends TestCase {
 	 * Test correct Wait and Notify
 	 * 
 	 */
+	@Test
 	public void testCorrectWaitNotify() {
 		Thread[] thread = new Thread[10];
 		Object lock1 = new Object() {
@@ -436,6 +428,7 @@ public class ThreadTest extends TestCase {
 	 * 
 	 * 
 	 */
+	@Test
 	public void testThreads() {
 		Thread[] threads = new Thread[10];
 		for (int i = 0; i < 10; i++) {
@@ -455,6 +448,7 @@ public class ThreadTest extends TestCase {
 	 * thread.
 	 * 
 	 */
+	@Test
 	public void testThreadsX() {
 		Integer bound = 10;
 		Thread[] threads = new Thread[bound];
@@ -483,6 +477,13 @@ public class ThreadTest extends TestCase {
 		map.entrySet().forEach(mapEntryPrintConsumer());
 	}
 
+	/**
+	 * 
+	 * 
+	 * 
+	 * 
+	 */
+	@Test
 	public void testThread() {
 		Integer bound = 10;
 		Thread[] threads = new Thread[bound];
@@ -518,6 +519,12 @@ public class ThreadTest extends TestCase {
 		}
 	}
 
+	/**
+	 * 
+	 * 
+	 * 
+	 */
+	@Test
 	public void testColoredThreads() {
 		Integer bound = 10;
 		Thread[] threads = new Thread[bound * 3];
@@ -560,6 +567,7 @@ public class ThreadTest extends TestCase {
 
 	}
 
+	@Test
 	public void testAdvancedColoredThreads() {
 		Integer bound = 10;
 		Thread[] threads = new Thread[bound * 3];
@@ -600,6 +608,5 @@ public class ThreadTest extends TestCase {
 				e.printStackTrace();
 			}
 		}
-
 	}
 }

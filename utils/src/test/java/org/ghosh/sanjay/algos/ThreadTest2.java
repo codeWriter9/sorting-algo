@@ -1,33 +1,22 @@
 package org.ghosh.sanjay.algos;
 
+import static java.lang.invoke.MethodHandles.lookup;
 import static org.ghosh.sanjay.algos.XCollections.fill;
+import static org.slf4j.LoggerFactory.getLogger;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Supplier;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.slf4j.Logger;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-public class ThreadTest2 extends TestCase {
-
-	/**
-	 * Create the test case
-	 *
-	 * @param testName
-	 *            name of the test case
-	 */
-	public ThreadTest2(String testName) {
-		super(testName);
-	}
-
-	/**
-	 * @return the suite of tests being tested
-	 */
-	public static Test suite() {
-		return new TestSuite(ThreadTest2.class);
-	}
+@ExtendWith(SpringExtension.class)
+public class ThreadTest2 {
+	
+	private static final Logger LOGGER = getLogger(lookup().lookupClass());
 
 	private enum Color {
 		RED, GREEN, BLUE
@@ -98,17 +87,18 @@ public class ThreadTest2 extends TestCase {
 						while (status.isNot(colorPrinter.color())) {
 							status.wait();
 						}
-						System.out.println(colorPrinter.color());
+						LOGGER.debug(colorPrinter.color().toString());
 						status.set(colorPrinter.nextColor());
 						status.notifyAll();
 					} catch (InterruptedException e) {
-						System.err.println(e.getMessage());
+						LOGGER.error(e.getMessage(), e);
 					}
 				}
 			}
 		};
 	}
 
+	@Test
 	public void testThread2() {
 		List<ColorPrinter> list = new ArrayList<ColorPrinter>();
 		list.addAll(color(new ColorPrinter(Color.RED), 10));

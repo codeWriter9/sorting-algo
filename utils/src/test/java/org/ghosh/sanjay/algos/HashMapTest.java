@@ -1,11 +1,14 @@
 package org.ghosh.sanjay.algos;
 
+import static java.lang.invoke.MethodHandles.lookup;
 import static java.time.Instant.now;
 import static java.util.Objects.hash;
 import static org.ghosh.sanjay.algos.DateUtils.betweenInMillis;
 import static org.ghosh.sanjay.algos.XCollections.hashMap;
 import static org.ghosh.sanjay.algos.XCollections.initialize;
 import static org.ghosh.sanjay.algos.XCollections.mapPrintConsumer;
+import static org.junit.Assert.assertEquals;
+import static org.slf4j.LoggerFactory.getLogger;
 
 import java.time.Instant;
 import java.util.Arrays;
@@ -17,36 +20,24 @@ import java.util.Map;
 import java.util.TreeMap;
 import java.util.function.BiFunction;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.slf4j.Logger;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-public class HashMapTest extends TestCase {
 
-	/**
-	 * Create the test case
-	 *
-	 * @param testName
-	 *            name of the test case
-	 */
-	public HashMapTest(String testName) {
-		super(testName);
-	}
-
-	/**
-	 * @return the suite of tests being tested
-	 */
-	public static Test suite() {
-		return new TestSuite(HashMapTest.class);
-	}
-
+@ExtendWith(SpringExtension.class)
+public class HashMapTest  {
+	
+	private static final Logger LOGGER = getLogger(lookup().lookupClass());
+	
 	/**
 	 * 
 	 * Returns a Map of the given list of Strings to their lengths
 	 * 
 	 * @param strings
 	 * @return
-	 */
+	 */	
 	public static Map<String, Integer> lengthMapping(String... strings) {
 		return initialize(hashMap(), (k) -> k == null ? 0 : ((String) k).length(), Arrays.asList(strings));
 	}
@@ -275,7 +266,8 @@ public class HashMapTest extends TestCase {
 	 * 
 	 * 
 	 */
-	public static void testHashMap() {
+	@Test
+	public void testHashMap() {
 		Map<HashMapTest.Employee, HashMapTest.Employee> employees = new HashMap<>();
 		employees.put(employee("Sanjay", 100.00, 10), HashMapTest.employee("Sanjay", 100.00, 10));
 		employees.put(employee("Sanjay", 100.00, 10), HashMapTest.employee("Sanjay", 100.00, 10));
@@ -286,8 +278,10 @@ public class HashMapTest extends TestCase {
 	 * 
 	 * 
 	 * 
+	 * 
 	 */
-	public static void testTreeMap() {
+	@Test
+	public void testTreeMap() {
 		Map<HashMapTest.Employee, HashMapTest.Employee> employees = new TreeMap<>();
 		try {
 			employees.put(employee("Sanjay", 100.00, 10), HashMapTest.employee("Sanjay", 100.00, 10));
@@ -302,7 +296,8 @@ public class HashMapTest extends TestCase {
 	 * 
 	 * 
 	 */
-	public static void testHashMap2() {
+	@Test
+	public void testHashMap2() {
 		Map<HashMapTest.Employee, HashMapTest.Employee> employees = new HashMap<>();
 		employees.put(uniqueEmployee("Sanjay", 100.00, 10), HashMapTest.uniqueEmployee("Sanjay", 100.00, 10));
 		employees.put(uniqueEmployee("Sanjay", 100.00, 10), HashMapTest.uniqueEmployee("Sanjay", 100.00, 10));
@@ -316,7 +311,8 @@ public class HashMapTest extends TestCase {
 	 * 
 	 * 
 	 */
-	public static void testTreeMap2() {
+	@Test
+	public void testTreeMap2() {
 		Map<HashMapTest.Employee, HashMapTest.Employee> employees = new TreeMap<>();
 		try {
 			employees.put(uniqueEmployee("Sanjay", 100.00, 10), uniqueEmployee("Sanjay", 100.00, 10));
@@ -332,7 +328,8 @@ public class HashMapTest extends TestCase {
 	 * 
 	 * 
 	 */
-	public static void testHashMap3() {
+	@Test
+	public void testHashMap3() {
 		Map<HashMapTest.Employee, HashMapTest.Employee> employees = new HashMap<>();
 		employees.put(comparableEmployee("Sanjay", 100.00, 10), comparableEmployee("Sanjay", 100.00, 10));
 		employees.put(comparableEmployee("Sanjay", 100.00, 10), comparableEmployee("Sanjay", 100.00, 10));
@@ -345,7 +342,8 @@ public class HashMapTest extends TestCase {
 	 * 
 	 * 
 	 */
-	public static void testTreeMap3() {
+	@Test
+	public void testTreeMap3() {
 		Map<HashMapTest.Employee, HashMapTest.Employee> employees = new TreeMap<>();
 		employees.put(comparableEmployee("Sanjay", 100.00, 10), comparableEmployee("Sanjay", 100.00, 10));
 		employees.put(comparableEmployee("Sanjay", 100.00, 10), comparableEmployee("Sanjay", 100.00, 10));
@@ -358,18 +356,19 @@ public class HashMapTest extends TestCase {
 	 * 
 	 * 
 	 */
-	public static void testHashMap4() {
-		System.out.println("-------------Using Hash Map--------------");
+	@Test
+	public void testHashMap4() {
+		LOGGER.debug("-------------Using Hash Map--------------");
 		Map<HashMapTest.Employee, HashMapTest.Employee> employees = new HashMap<>();
 		employees.put(comparableEmployee("Sanjay", 100.00, 10), comparableEmployee("Sanjay", 100.00, 10));
 		employees.put(comparableEmployee("Hrishikesh", 200.00, 10), comparableEmployee("Hrishikesh", 200.00, 10));
-		System.out.println("-------------Before Compute--------------");
+		LOGGER.debug("-------------Before Compute--------------");
 		employees.forEach(mapPrintConsumer());
 		employees.compute(comparableEmployee("Sanjay", 100.00, 10),
 				salaryIncrementer(comparableEmployee("Sanjay", 100.00, 10)));
-		System.out.println("-------------After Compute--------------");
+		LOGGER.debug("-------------After Compute--------------");
 		employees.forEach(mapPrintConsumer());
-		System.out.println("----------------------------------------");
+		LOGGER.debug("----------------------------------------");
 
 	}
 
@@ -378,18 +377,19 @@ public class HashMapTest extends TestCase {
 	 * 
 	 * 
 	 */
-	public static void testTreeMap4() {
-		System.out.println("-------------Using Tree Map--------------");
+	@Test
+	public void testTreeMap4() {
+		LOGGER.debug("-------------Using Tree Map--------------");
 		Map<HashMapTest.Employee, HashMapTest.Employee> employees = new TreeMap<>();
 		employees.put(comparableEmployee("Sanjay", 100.00, 10), comparableEmployee("Sanjay", 100.00, 10));
 		employees.put(comparableEmployee("Hrishikesh", 200.00, 10), comparableEmployee("Hrishikesh", 200.00, 10));
-		System.out.println("-------------Before Compute--------------");
+		LOGGER.debug("-------------Before Compute--------------");
 		employees.forEach(mapPrintConsumer());
 		employees.compute(comparableEmployee("Sanjay", 100.00, 10),
 				salaryIncrementer(comparableEmployee("Sanjay", 100.00, 10)));
-		System.out.println("-------------After Compute--------------");
+		LOGGER.debug("-------------After Compute--------------");
 		employees.forEach(mapPrintConsumer());
-		System.out.println("----------------------------------------");
+		LOGGER.debug("----------------------------------------");
 	}
 
 	/**
@@ -397,18 +397,19 @@ public class HashMapTest extends TestCase {
 	 * 
 	 * 
 	 */
-	public static void testLoadHashMap() {
+	@Test
+	public void testLoadHashMap() {
 		Instant start = now();
-		System.out.println("-------------Load Hash Map--------------");
+		LOGGER.debug("-------------Load Hash Map--------------");
 		Map<String, Integer> numbers = new HashMap<>(16, 0.75f);
-		System.out.println("Inital Capacity : 16\t Load Factor : 0.75f");
+		LOGGER.debug("Inital Capacity : 16\t Load Factor : 0.75f");
 		for (Integer loop = 0; loop < 1000000; loop++)
 			numbers.put(loop.toString(), loop);
-		System.out.println(" Size: " + numbers.size());
+		LOGGER.debug(" Size: " + numbers.size());
 		Instant end = now();
-		System.out.println(" Time Taken: " + betweenInMillis(start, end) + " ms ");
+		LOGGER.debug(" Time Taken: " + betweenInMillis(start, end) + " ms ");
 		numbers = null;
-		System.out.println("----------------------------------------");
+		LOGGER.debug("----------------------------------------");
 	}
 
 	/**
@@ -416,18 +417,19 @@ public class HashMapTest extends TestCase {
 	 * 
 	 * 
 	 */
-	public static void testLoadHashMap2() {
+	@Test
+	public void testLoadHashMap2() {
 		Instant start = now();
-		System.out.println("-------------Load Hash Map--------------");
-		System.out.println("Inital Capacity : 1000\t Load Factor : 0.75f");
+		LOGGER.debug("-------------Load Hash Map--------------");
+		LOGGER.debug("Inital Capacity : 1000\t Load Factor : 0.75f");
 		Map<String, Integer> numbers = new HashMap<>(1000, 0.75f);
 		for (Integer loop = 0; loop < 1000000; loop++)
 			numbers.put(loop.toString(), loop);
-		System.out.println(" Size: " + numbers.size());
+		LOGGER.debug(" Size: " + numbers.size());
 		Instant end = now();
-		System.out.println(" Time Taken: " + betweenInMillis(start, end) + " ms ");
+		LOGGER.debug(" Time Taken: " + betweenInMillis(start, end) + " ms ");
 		numbers = null;
-		System.out.println("----------------------------------------");
+		LOGGER.debug("----------------------------------------");
 	}
 
 	/**
@@ -436,18 +438,19 @@ public class HashMapTest extends TestCase {
 	 * 
 	 * 
 	 */
-	public static void testLoadHashMap3() {
+	@Test
+	public void testLoadHashMap3() {
 		Instant start = now();
-		System.out.println("-------------Load Hash Map--------------");
-		System.out.println("Inital Capacity : 100000\t Load Factor : 0.75f");
+		LOGGER.debug("-------------Load Hash Map--------------");
+		LOGGER.debug("Inital Capacity : 100000\t Load Factor : 0.75f");
 		Map<String, Integer> numbers = new HashMap<>(100000, 0.75f);
 		for (Integer loop = 0; loop < 1000000; loop++)
 			numbers.put(loop.toString(), loop);
-		System.out.println(" Size: " + numbers.size());
+		LOGGER.debug(" Size: " + numbers.size());
 		Instant end = now();
-		System.out.println(" Time Taken: " + betweenInMillis(start, end) + " ms ");
+		LOGGER.debug(" Time Taken: " + betweenInMillis(start, end) + " ms ");
 		numbers = null;
-		System.out.println("----------------------------------------");
+		LOGGER.debug("----------------------------------------");
 	}
 
 	/**
@@ -455,7 +458,8 @@ public class HashMapTest extends TestCase {
 	 * 
 	 * 
 	 */
-	public static void testMap1() {
+	@Test
+	public void testMap1() {
 		Map<String, Integer> map = lengthMapping(names());
 		List<Map.Entry<String, Integer>> listOfEntries = new LinkedList<>(map.entrySet());
 		listOfEntries.sort(Map.Entry.comparingByValue());
@@ -467,13 +471,12 @@ public class HashMapTest extends TestCase {
 		for (Map.Entry<String, Integer> entry : listOfEntries)
 			otherMap.put(entry.getKey(), entry.getValue());
 
-		System.out.println("--------------------");
-		System.out.println(map);
-		System.out.println("--------------------");
+		LOGGER.debug("--------------------");
+		LOGGER.debug(map.toString());
+		LOGGER.debug("--------------------");
 
-		System.out.println("--------------------");
-		System.out.println(otherMap);
-		System.out.println("--------------------");
+		LOGGER.debug("--------------------");
+		LOGGER.debug(otherMap.toString());
+		LOGGER.debug("--------------------");
 	}
-
 }

@@ -1,5 +1,6 @@
 package org.ghosh.sanjay.algos;
 
+import static java.lang.invoke.MethodHandles.lookup;
 import static org.ghosh.sanjay.algos.XCollections.arrayList;
 import static org.ghosh.sanjay.algos.XCollections.hashSet;
 import static org.ghosh.sanjay.algos.XCollections.initializeList;
@@ -8,35 +9,25 @@ import static org.ghosh.sanjay.algos.XCollections.linkedHashSet;
 import static org.ghosh.sanjay.algos.XCollections.linkedList;
 import static org.ghosh.sanjay.algos.XCollections.randomIntegers;
 import static org.ghosh.sanjay.algos.XCollections.senitel;
+import static org.junit.Assert.assertEquals;
+import static org.slf4j.LoggerFactory.getLogger;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.slf4j.Logger;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-public class XCollectionsTest extends TestCase {
-
-	/**
-	 * Create the test case
-	 *
-	 * @param testName
-	 *            name of the test case
-	 */
-	public XCollectionsTest(String testName) {
-		super(testName);
-	}
-
-	/**
-	 * @return the suite of tests being tested
-	 */
-	public static Test suite() {
-		return new TestSuite(XCollectionsTest.class);
-	}
+@ExtendWith(SpringExtension.class)
+public class XCollectionsTest {
+	
+	private static final Logger LOGGER = getLogger(lookup().lookupClass());
 
 	/**
 	 * 
 	 * Test the creation of a new Array List through lambda
 	 * 
 	 */
+	@Test
 	public void testXCollectionsNewList() {
 		assertEquals(true, arrayList().get() != null && arrayList().get().isEmpty());
 	}
@@ -47,15 +38,17 @@ public class XCollectionsTest extends TestCase {
 	 * Test the creation of a new Linked List through lambda
 	 * 
 	 */
+	@Test
 	public void testXCollectionsNewList2() {
 		assertEquals(true, linkedList().get() != null && linkedList().get().isEmpty());
 	}
-	
+
 	/**
 	 * 
-	 * Create a new array list of a defined size and initialize it to a random value  
+	 * Create a new array list of a defined size and initialize it to a random value
 	 * 
 	 */
+	@Test
 	public void testIntegerList() {
 		for (Integer integer : initializeList(arrayList(), randomIntegers(1), 10)) {
 			assertEquals(true, integer == 1 || integer == 0);
@@ -68,6 +61,7 @@ public class XCollectionsTest extends TestCase {
 	 * 
 	 * 
 	 */
+	@Test
 	public void testIntegerList3() {
 		for (Integer integer : initializeList(arrayList(), senitel(0), 10)) {
 			assertEquals(true, integer == 0);
@@ -76,9 +70,11 @@ public class XCollectionsTest extends TestCase {
 
 	/**
 	 * 
-	 * Create a new linked list of a defined size and initialize it to a passed value
+	 * Create a new linked list of a defined size and initialize it to a passed
+	 * value
 	 * 
 	 */
+	@Test
 	public void testIntegerList4() {
 		for (Integer integer : initializeList(linkedList(), senitel(0), 10)) {
 			assertEquals(true, integer == 0);
@@ -90,6 +86,7 @@ public class XCollectionsTest extends TestCase {
 	 * Test the creation of a new Hash Set through lambda
 	 * 
 	 */
+	@Test
 	public void testXCollectionsNewSet() {
 		assertEquals(true, hashSet().get() != null && hashSet().get().isEmpty());
 	}
@@ -100,15 +97,17 @@ public class XCollectionsTest extends TestCase {
 	 * Test the creation of a new Linked Hash Set through lambda
 	 * 
 	 */
+	@Test
 	public void testXCollectionsNewSet2() {
 		assertEquals(true, linkedHashSet().get() != null && linkedHashSet().get().isEmpty());
 	}
-	
+
 	/**
 	 * 
-	 * Create a new array list of a defined size and initialize it to a random value  
+	 * Create a new array list of a defined size and initialize it to a random value
 	 * 
 	 */
+	@Test
 	public void testIntegerSet() {
 		for (Integer integer : initializeSet(hashSet(), randomIntegers(1), 10)) {
 			assertEquals(true, integer == 1 || integer == 0);
@@ -121,6 +120,7 @@ public class XCollectionsTest extends TestCase {
 	 * 
 	 * 
 	 */
+	@Test
 	public void testIntegerSet3() {
 		for (Integer integer : initializeSet(hashSet(), senitel(0), 10)) {
 			assertEquals(true, integer == 0);
@@ -129,9 +129,11 @@ public class XCollectionsTest extends TestCase {
 
 	/**
 	 * 
-	 * Create a new linked list of a defined size and initialize it to a passed value
+	 * Create a new linked list of a defined size and initialize it to a passed
+	 * value
 	 * 
 	 */
+	@Test
 	public void testIntegerSet4() {
 		for (Integer integer : initializeSet(linkedHashSet(), senitel(0), 10)) {
 			assertEquals(true, integer == 0);

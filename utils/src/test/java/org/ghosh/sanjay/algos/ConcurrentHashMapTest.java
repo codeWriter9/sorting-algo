@@ -1,10 +1,12 @@
 package org.ghosh.sanjay.algos;
 
+import static java.lang.invoke.MethodHandles.lookup;
 import static java.util.concurrent.Executors.newCachedThreadPool;
 import static java.util.concurrent.TimeUnit.MILLISECONDS;
 import static org.ghosh.sanjay.algos.Utils.mirror;
 import static org.ghosh.sanjay.algos.Utils.printIntConsumer;
 import static org.ghosh.sanjay.algos.Utils.sleepSafely;
+import static org.slf4j.LoggerFactory.getLogger;
 
 import java.util.Arrays;
 import java.util.Map;
@@ -22,10 +24,10 @@ import java.util.function.IntConsumer;
 import java.util.function.IntSupplier;
 import java.util.stream.Collectors;
 
-import junit.framework.Assert;
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.slf4j.Logger;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 /**
  * 
@@ -34,32 +36,10 @@ import junit.framework.TestSuite;
  * @author Sanjay Ghosh
  *
  */
-public class ConcurrentHashMapTest extends TestCase {
-
-	/**
-	 * Create the test case
-	 *
-	 * @param testName
-	 *            name of the test case
-	 */
-	public ConcurrentHashMapTest(String testName) {
-		super(testName);
-	}
-
-	/**
-	 * @return the suite of tests being tested
-	 */
-	public static Test suite() {
-		return new TestSuite(ConcurrentHashMapTest.class);
-	}
-
-	/**
-	 * 
-	 * 
-	 */
-	public void testMap() {
-		Assert.assertEquals(true, true);
-	}
+@ExtendWith(SpringExtension.class)
+public class ConcurrentHashMapTest {
+	
+	private static final Logger LOGGER = getLogger(lookup().lookupClass());
 
 	/**
 	 * 
@@ -128,7 +108,7 @@ public class ConcurrentHashMapTest extends TestCase {
 				try {
 					consumer.accept(queue.take());
 				} catch (InterruptedException e) {
-					System.err.println(e.getMessage());
+					LOGGER.error(e.getMessage(), e);
 				}
 			}
 		};
@@ -148,7 +128,7 @@ public class ConcurrentHashMapTest extends TestCase {
 				try {
 					queue.put(supplier.getAsInt());
 				} catch (InterruptedException e) {
-					System.err.println(e.getMessage());
+					LOGGER.error(e.getMessage());
 				}
 			}
 		};
@@ -186,7 +166,7 @@ public class ConcurrentHashMapTest extends TestCase {
 							frequency.computeIfAbsent(data.get(str), k -> 1);
 						}
 				} catch (Exception e) {
-					System.err.println(e.getCause());
+					LOGGER.error(e.getMessage(), e.getCause());
 				} finally {
 					lock.unlock();
 				}
@@ -198,6 +178,7 @@ public class ConcurrentHashMapTest extends TestCase {
 	 * Checks the frequency of lengths of words
 	 * 
 	 */
+	@Test
 	public void testConcurrentHashMap() {
 		ExecutorService service = newCachedThreadPool();
 		ConcurrentMap<Integer, Integer> concurrentMap = new ConcurrentHashMap<>();
@@ -207,7 +188,7 @@ public class ConcurrentHashMapTest extends TestCase {
 			service.execute(runnable(lock, concurrentMap, mapToLength("Alpha", "Beta", "Gamma", "Delta", "Phi", "Si")));
 		}
 		sleepSafely(1000);
-		concurrentMap.forEach((k, v) -> System.out.println(" Key [" + k + "] = Value [" + v + "]"));
+		concurrentMap.forEach((k, v) -> LOGGER.debug(" Key [" + k + "] = Value [" + v + "]"));
 
 		shutdownWithGrace(service);
 	}
@@ -219,6 +200,7 @@ public class ConcurrentHashMapTest extends TestCase {
 	 * then the suppliers are created.
 	 * 
 	 */
+	@Test
 	public void testArrayBlockingQueue() {
 		// create an executor service to get a cached Thread Pool
 		ExecutorService service = newCachedThreadPool();
@@ -241,6 +223,7 @@ public class ConcurrentHashMapTest extends TestCase {
 	 * Create 10 Consumers
 	 * 
 	 */
+	@Test
 	public void testConcurrentHashMapBasic() {
 		ExecutorService service = newCachedThreadPool();
 		ConcurrentMap<Integer, Integer> concurrentMap = new ConcurrentHashMap<>();
@@ -250,14 +233,14 @@ public class ConcurrentHashMapTest extends TestCase {
 		}
 
 		for (int loop = 0; loop < 2; loop++)
-			service.execute(consumer(concurrentMap, (t, u) -> System.out.println(t + ":" + u)));
+			service.execute(consumer(concurrentMap, (t, u) -> LOGGER.debug(t + ":" + u)));
 
 		for (int loop = 0; loop < 10; loop++) {
 			service.execute(remover(concurrentMap, (t, u) -> t % 2 == 0 ? null : u, Utils.mirror(loop)));
 		}
 
 		for (int loop = 0; loop < 2; loop++)
-			service.execute(consumer(concurrentMap, (t, u) -> System.out.println(t + ":" + u)));
+			service.execute(consumer(concurrentMap, (t, u) -> LOGGER.debug(t + ":" + u)));
 
 		shutdownWithGrace(service);
 	}
@@ -267,7 +250,7 @@ public class ConcurrentHashMapTest extends TestCase {
 	 * Boiler plate code to shutdown with grace Ideally this should be in some
 	 * abstract class
 	 * 
-	 */
+	 */	
 	private void shutdownWithGrace(final ExecutorService service) {
 		try {
 			service.shutdown();// try and shutdown the service
@@ -276,7 +259,7 @@ public class ConcurrentHashMapTest extends TestCase {
 																	// Interrupted Exception has not been thrown
 				service.shutdownNow();// force the service to shutdown now
 		} catch (InterruptedException e) {
-			System.err.println(e.getMessage());
+			LOGGER.error(e.getMessage(), e);
 		}
 	}
 }

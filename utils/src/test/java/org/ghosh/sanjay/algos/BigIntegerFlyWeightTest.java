@@ -1,61 +1,40 @@
 package org.ghosh.sanjay.algos;
 
+import static java.lang.invoke.MethodHandles.lookup;
 import static java.time.Instant.now;
 import static java.time.temporal.ChronoUnit.MILLIS;
+import static org.slf4j.LoggerFactory.getLogger;
 
 import java.math.BigInteger;
 import java.time.Instant;
-import java.time.temporal.ChronoUnit;
-import java.time.temporal.TemporalUnit;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.slf4j.Logger;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-public class BigIntegerFlyWeightTest extends TestCase {
+@ExtendWith(SpringExtension.class)
+public class BigIntegerFlyWeightTest {
 	
-	/**
-     * Create the test case
-     *
-     * @param testName name of the test case
-     */
-    public BigIntegerFlyWeightTest( String testName )
-    {
-        super( testName );
-    }
+	private static final Logger LOGGER = getLogger(lookup().lookupClass());
 
-    /**
-     * @return the suite of tests being tested
-     */
-    public static Test suite()
-    {
-        return new TestSuite( BigIntegerFlyWeightTest.class );
-    }
-    
-    /**
-     * 
-     * 
-     */
-    public void testBigInteger1() {
-    	Instant start = now();
-    	for(Integer loop=0;loop<10000;loop++) {
-    		new BigInteger(loop + "");
-    	}
-    	Instant end = now();
-    	System.out.println(start.until(end, MILLIS) + " ms ");
-    }
-    
-    /**
-     * 
-     * 
-     * 
-     */
-    public void testBigInteger2() {
-    	Instant start = now();
-    	for(Integer loop=0;loop<10000;loop++) {
-    		BigInteger.valueOf(loop);
-    	}
-    	Instant end = now();
-    	System.out.println(start.until(end, MILLIS) + " ms ");
-    }
+	@Test
+	public void testBigInteger1() {
+		Instant start = now();
+		for (Integer loop = 0; loop < 10000; loop++) {
+			new BigInteger(loop + "");
+		}
+		Instant end = now();
+		LOGGER.info(start.until(end, MILLIS) + " ms ");
+	}
+
+	@Test
+	public void testBigInteger2() {
+		Instant start = now();
+		for (Integer loop = 0; loop < 10000; loop++) {
+			BigInteger.valueOf(loop);
+		}
+		Instant end = now();
+		LOGGER.info(start.until(end, MILLIS) + " ms ");
+	}
 }
