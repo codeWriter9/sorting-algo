@@ -175,7 +175,7 @@ public class ThreadTest {
 								}
 							}
 						}
-						System.out.print(current.color());
+						LOGGER.debug(current.color());
 						lock.notifyAll();
 					}
 				}
@@ -205,7 +205,7 @@ public class ThreadTest {
 								}
 							}
 						}
-						System.out.print(current.color());
+						LOGGER.debug(current.color());
 						lock.notifyAll();
 					}
 				}
@@ -402,7 +402,7 @@ public class ThreadTest {
 			try {
 				Thread.sleep(100);// So that all the threads to line up before the locks to get a monitor
 			} catch (InterruptedException e) {
-				e.printStackTrace();
+				LOGGER.error(e.getMessage(), e);
 			}
 			thread[i].start();
 		}
@@ -416,7 +416,7 @@ public class ThreadTest {
 			try {
 				thread[i].join(1000, 100);// so that the main thread waits for all of the other threads to finish
 			} catch (InterruptedException e) {
-				e.printStackTrace();
+				LOGGER.error(e.getMessage(), e);
 			}
 		}
 
@@ -471,7 +471,7 @@ public class ThreadTest {
 			try {
 				threads[i].join();
 			} catch (InterruptedException e) {
-				e.printStackTrace();
+				LOGGER.error(e.getMessage(), e);
 			}
 		}
 		map.entrySet().forEach(mapEntryPrintConsumer());
@@ -514,7 +514,7 @@ public class ThreadTest {
 			try {
 				threads[i].join();
 			} catch (InterruptedException e) {
-				e.printStackTrace();
+				LOGGER.error(e.getMessage(), e);
 			}
 		}
 	}
@@ -561,7 +561,7 @@ public class ThreadTest {
 			try {
 				threads[i].join();
 			} catch (InterruptedException e) {
-				e.printStackTrace();
+				LOGGER.error(e.getMessage(), e);
 			}
 		}
 
@@ -605,7 +605,7 @@ public class ThreadTest {
 			try {
 				threads[i].join();
 			} catch (InterruptedException e) {
-				e.printStackTrace();
+				LOGGER.error(e.getMessage(), e);
 			}
 		}
 	}

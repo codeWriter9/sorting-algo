@@ -1,13 +1,17 @@
 package org.ghosh.sanjay.algos;
 
+import static java.lang.invoke.MethodHandles.lookup;
 import static java.time.Duration.between;
 import static java.time.temporal.ChronoField.CLOCK_HOUR_OF_DAY;
 import static java.time.temporal.ChronoField.MINUTE_OF_HOUR;
 import static java.time.temporal.ChronoField.SECOND_OF_MINUTE;
+import static org.slf4j.LoggerFactory.getLogger;
 
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+
+import org.slf4j.Logger;
 
 /**
  * 
@@ -17,6 +21,8 @@ import java.time.LocalDateTime;
  *
  */
 public class DateUtils {
+	
+	private static final Logger LOGGER = getLogger(lookup().lookupClass());
 
 	/**
 	 * 

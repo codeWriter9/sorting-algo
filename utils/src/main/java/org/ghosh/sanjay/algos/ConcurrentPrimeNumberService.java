@@ -1,10 +1,12 @@
 package org.ghosh.sanjay.algos;
 
+import static java.lang.invoke.MethodHandles.lookup;
 import static java.math.BigInteger.ONE;
 import static java.math.BigInteger.ZERO;
 import static java.util.Arrays.asList;
 import static java.util.concurrent.TimeUnit.MILLISECONDS;
 import static org.ghosh.sanjay.algos.Utils.isLessThan;
+import static org.slf4j.LoggerFactory.getLogger;
 
 import java.math.BigInteger;
 import java.util.Map;
@@ -13,6 +15,8 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.function.Consumer;
+
+import org.slf4j.Logger;
 
 /**
  * 
@@ -24,6 +28,8 @@ import java.util.function.Consumer;
  *
  */
 public class ConcurrentPrimeNumberService implements PrimeService {
+	
+	private static final Logger LOGGER = getLogger(lookup().lookupClass());
 
 	private static final BigInteger TWO = ONE.add(ONE);
 	private static final BigInteger THREE = TWO.add(ONE);

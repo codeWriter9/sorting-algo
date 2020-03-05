@@ -1,6 +1,13 @@
 package org.ghosh.sanjay.algos;
 
+import static java.lang.invoke.MethodHandles.lookup;
+import static org.slf4j.LoggerFactory.getLogger;
+
+import org.slf4j.Logger;
+
 public class NoVisibility {
+	
+	private static final Logger LOGGER = getLogger(lookup().lookupClass());
 	
 	private static boolean ready;
 	private static int number;
@@ -10,7 +17,7 @@ public class NoVisibility {
 		public void run() {
 			while(!ready) {
 				Thread.yield();
-			System.out.println(number);
+			LOGGER.debug(Integer.toString(number));
 			}
 		}
 	}

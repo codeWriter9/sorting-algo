@@ -29,7 +29,7 @@ public class Data<T extends Comparable<T>> {
 	 * 
 	 * 
 	 * @param x
-	 * @return
+	 * @return Data<Integer>
 	 */
 	public static Data<Integer> integer(int integer) {
 		return new Data<Integer>(new Integer(integer));
@@ -39,7 +39,7 @@ public class Data<T extends Comparable<T>> {
 	 * 
 	 * 
 	 * @param longInteger
-	 * @return
+	 * @return Data<Long>
 	 */
 	public static Data<Long> longInteger(long longInteger) {
 		return new Data<Long>(new Long(longInteger));
@@ -49,7 +49,7 @@ public class Data<T extends Comparable<T>> {
 	 * 
 	 * 
 	 * @param _double
-	 * @return
+	 * @return Data<Double>
 	 */
 	public static Data<Double> doubleNumber(double _double) {
 		return new Data<Double>(new Double(_double));
@@ -59,7 +59,7 @@ public class Data<T extends Comparable<T>> {
 	 * 
 	 * 
 	 * @param _double
-	 * @return
+	 * @return Data<Float>
 	 */
 	public static Data<Float> floatNumber(double _float) {
 		return new Data<Float>(new Float(_float));
@@ -70,7 +70,7 @@ public class Data<T extends Comparable<T>> {
 	 * 
 	 * 
 	 * @param otherData
-	 * @return
+	 * @return Data<T> otherData
 	 */
 	public boolean isEqual(Data<T> otherData) {
 		return this.data.equals(otherData.data);
@@ -80,7 +80,7 @@ public class Data<T extends Comparable<T>> {
 	 * 
 	 * 
 	 * 
-	 * @return
+	 * @return <T> value
 	 */
 	public T value() {
 		return data;
@@ -110,8 +110,8 @@ public class Data<T extends Comparable<T>> {
 
 	/**
 	 * 
-	 * 
-	 * 
+	 * @param Object object to be checked
+	 * @return True if equal else false
 	 * @Override
 	 */
 	@SuppressWarnings("unchecked")
@@ -127,7 +127,7 @@ public class Data<T extends Comparable<T>> {
 	 * 
 	 * 
 	 * 
-	 * 
+	 * @return Integer 
 	 */
 	public int hashCode() {
 		return data.hashCode();

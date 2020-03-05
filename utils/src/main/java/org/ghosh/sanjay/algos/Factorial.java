@@ -1,9 +1,16 @@
 package org.ghosh.sanjay.algos;
 
+import static java.lang.invoke.MethodHandles.lookup;
+import static org.slf4j.LoggerFactory.getLogger;
+
 import java.math.BigInteger;
 import java.util.Scanner;
 
+import org.slf4j.Logger;
+
 public class Factorial {
+	
+	private static final Logger LOGGER = getLogger(lookup().lookupClass());
 	
 	private static BigInteger [] factorials = new BigInteger[100000];
 	private static BigInteger divider = BigInteger.valueOf((1000 * 1000 * 1000)).add(BigInteger.valueOf(7)); 
@@ -30,11 +37,11 @@ public class Factorial {
 	}
 	
 	public static void main(String[] args) {
-		Scanner s = new Scanner(System.in);
-		Integer T = s.nextInt();
-		while(T > 0) {
-			System.out.println(modulo(factorial(s.nextInt())));
-			T--;
+		Scanner scanner = new Scanner(System.in);
+		Integer integer = scanner.nextInt();
+		while(integer > 0) {
+			LOGGER.debug(modulo(factorial(scanner.nextInt())).toString());
+			integer--;
 		}
 	}
 }

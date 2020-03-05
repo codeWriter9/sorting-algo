@@ -1,10 +1,12 @@
 package org.ghosh.sanjay.algos;
 
+import static java.lang.invoke.MethodHandles.lookup;
 import static java.math.BigInteger.ONE;
 import static java.math.BigInteger.ZERO;
 import static java.util.Arrays.asList;
 import static org.ghosh.sanjay.algos.Utils.exceptionConsumer;
 import static org.ghosh.sanjay.algos.Utils.isLessThan;
+import static org.slf4j.LoggerFactory.getLogger;
 
 import java.math.BigInteger;
 import java.util.HashSet;
@@ -16,7 +18,11 @@ import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
 
+import org.slf4j.Logger;
+
 public class BlockingPrimeNumberService implements PrimeService {
+	
+	private static final Logger LOGGER = getLogger(lookup().lookupClass());
 
 	private static final BigInteger TWO = ONE.add(ONE);
 	private static final BigInteger THREE = TWO.add(ONE);

@@ -1,9 +1,16 @@
 package org.ghosh.sanjay.algos;
 
+import static java.lang.invoke.MethodHandles.lookup;
+import static org.slf4j.LoggerFactory.getLogger;
+
 import java.lang.reflect.Constructor;
 import java.util.Iterator;
 
+import org.slf4j.Logger;
+
 public class ConstructorEnumerator implements Iterator<Constructor<?>> {
+	
+	private static final Logger LOGGER = getLogger(lookup().lookupClass());
 
 	private Class<?> clazz;
 	private Constructor<?>[] m;
