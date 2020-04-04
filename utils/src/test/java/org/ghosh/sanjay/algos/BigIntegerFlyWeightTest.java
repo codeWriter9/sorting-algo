@@ -25,7 +25,7 @@ public class BigIntegerFlyWeightTest {
 			new BigInteger(loop + "");
 		}
 		Instant end = now();
-		LOGGER.info(start.until(end, MILLIS) + " ms ");
+		LOGGER.info(" Object creation takes " + start.until(end, MILLIS) + " ms ");
 	}
 
 	@Test
@@ -35,6 +35,6 @@ public class BigIntegerFlyWeightTest {
 			BigInteger.valueOf(loop);
 		}
 		Instant end = now();
-		LOGGER.info(start.until(end, MILLIS) + " ms ");
+		LOGGER.info(" Fly Weight Pattern " + start.until(end, MILLIS) + " ms ");
 	}
 }

@@ -252,13 +252,10 @@ public class HashMapTest  {
 	 * @return Function<Employee, Employee>
 	 */
 	private static BiFunction<Employee, Employee, Employee> salaryIncrementer(final Employee employee) {
-		return new BiFunction<Employee, Employee, Employee>() {
-			@Override
-			public Employee apply(Employee t, Employee u) {
+		return (t, u) -> {
 				t.setSalary(t.getSalary() * 1.10 > 10000000 ? t.getSalary() : t.getSalary() * 1.10);
 				return t;
-			}
-		};
+		};		
 	}
 
 	/**
@@ -269,8 +266,8 @@ public class HashMapTest  {
 	@Test
 	public void testHashMap() {
 		Map<HashMapTest.Employee, HashMapTest.Employee> employees = new HashMap<>();
-		employees.put(employee("Sanjay", 100.00, 10), HashMapTest.employee("Sanjay", 100.00, 10));
-		employees.put(employee("Sanjay", 100.00, 10), HashMapTest.employee("Sanjay", 100.00, 10));
+		employees.put(employee("Sanjay", 100.00, 10), employee("Sanjay", 100.00, 10));
+		employees.put(employee("Sanjay", 100.00, 10), employee("Sanjay", 100.00, 10));
 		assertEquals(false, employees.size() == 1);
 	}
 

@@ -1,6 +1,7 @@
 package org.ghosh.sanjay.algos;
 
 import static java.lang.invoke.MethodHandles.lookup;
+import static java.util.Arrays.asList;
 import static java.util.concurrent.Executors.newCachedThreadPool;
 import static java.util.concurrent.TimeUnit.MILLISECONDS;
 import static org.ghosh.sanjay.algos.Utils.mirror;
@@ -8,7 +9,6 @@ import static org.ghosh.sanjay.algos.Utils.printIntConsumer;
 import static org.ghosh.sanjay.algos.Utils.sleepSafely;
 import static org.slf4j.LoggerFactory.getLogger;
 
-import java.util.Arrays;
 import java.util.Map;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
@@ -38,7 +38,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
  */
 @ExtendWith(SpringExtension.class)
 public class ConcurrentHashMapTest {
-	
+
 	private static final Logger LOGGER = getLogger(lookup().lookupClass());
 
 	/**
@@ -50,12 +50,7 @@ public class ConcurrentHashMapTest {
 	 */
 	private Runnable consumer(final ConcurrentMap<Integer, Integer> concurrentMap,
 			final BiConsumer<Integer, Integer> consumer) {
-		return new Runnable() {
-			@Override
-			public void run() {
-				concurrentMap.forEach(consumer);
-			}
-		};
+		return () -> concurrentMap.forEach(consumer);
 	}
 
 	/**
@@ -68,13 +63,7 @@ public class ConcurrentHashMapTest {
 	 */
 	private Runnable remover(final ConcurrentMap<Integer, Integer> concurrentMap,
 			final BiFunction<Integer, Integer, Integer> remappingFunction, final IntSupplier supplier) {
-		return new Runnable() {
-
-			@Override
-			public void run() {
-				concurrentMap.compute(supplier.getAsInt(), remappingFunction);
-			}
-		};
+		return () -> concurrentMap.compute(supplier.getAsInt(), remappingFunction);
 	}
 
 	/**
@@ -85,12 +74,7 @@ public class ConcurrentHashMapTest {
 	 * @return
 	 */
 	private Runnable supplier(final ConcurrentMap<Integer, Integer> concurrentMap, final IntSupplier supplier) {
-		return new Runnable() {
-			@Override
-			public void run() {
-				concurrentMap.putIfAbsent(supplier.getAsInt(), supplier.getAsInt());
-			}
-		};
+		return () -> concurrentMap.putIfAbsent(supplier.getAsInt(), supplier.getAsInt());
 	}
 
 	/**
@@ -102,14 +86,11 @@ public class ConcurrentHashMapTest {
 	 * @return
 	 */
 	private Runnable consumer(final BlockingQueue<Integer> queue, final IntConsumer consumer) {
-		return new Runnable() {
-			@Override
-			public void run() {
-				try {
-					consumer.accept(queue.take());
-				} catch (InterruptedException e) {
-					LOGGER.error(e.getMessage(), e);
-				}
+		return () -> {
+			try {
+				consumer.accept(queue.take());
+			} catch (InterruptedException e) {
+				LOGGER.error(e.getMessage(), e);
 			}
 		};
 	}
@@ -122,14 +103,11 @@ public class ConcurrentHashMapTest {
 	 * @return
 	 */
 	private Runnable supplier(final BlockingQueue<Integer> queue, final IntSupplier supplier) {
-		return new Runnable() {
-			@Override
-			public void run() {
-				try {
-					queue.put(supplier.getAsInt());
-				} catch (InterruptedException e) {
-					LOGGER.error(e.getMessage());
-				}
+		return () -> {
+			try {
+				queue.put(supplier.getAsInt());
+			} catch (InterruptedException e) {
+				LOGGER.error(e.getMessage());
 			}
 		};
 	}
@@ -142,7 +120,7 @@ public class ConcurrentHashMapTest {
 	 * @return
 	 */
 	private Map<String, Integer> mapToLength(String... str) {
-		return Arrays.asList(str).stream().collect(Collectors.toMap(Function.identity(), String::length));
+		return asList(str).stream().collect(Collectors.toMap(Function.identity(), String::length));
 	}
 
 	/**
@@ -250,7 +228,7 @@ public class ConcurrentHashMapTest {
 	 * Boiler plate code to shutdown with grace Ideally this should be in some
 	 * abstract class
 	 * 
-	 */	
+	 */
 	private void shutdownWithGrace(final ExecutorService service) {
 		try {
 			service.shutdown();// try and shutdown the service

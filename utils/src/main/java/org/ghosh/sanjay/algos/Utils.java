@@ -1,6 +1,8 @@
 package org.ghosh.sanjay.algos;
 
+import static java.lang.invoke.MethodHandles.lookup;
 import static java.util.stream.IntStream.range;
+import static org.slf4j.LoggerFactory.getLogger;
 
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
@@ -11,15 +13,19 @@ import java.util.function.IntUnaryOperator;
 import java.util.function.LongPredicate;
 import java.util.stream.IntStream;
 
+import org.slf4j.Logger;
+
 /**
  * 
- * 
+ * Utility Methods which do not fit anywhere else
  * 
  * 
  * @author Sanjay Ghosh
  *
  */
 public class Utils {
+	
+	private static final Logger LOGGER = getLogger(lookup().lookupClass());
 
 	/**
 	 * 
@@ -227,13 +233,7 @@ public class Utils {
 	 * @return IntConsumer
 	 */
 	public static IntConsumer printIntConsumer() {
-		return new IntConsumer() {
-
-			@Override
-			public void accept(int value) {
-				System.out.println(value);
-			}
-		};
+		return (value) -> LOGGER.info("" + value);			
 	}
 
 	/**
@@ -243,14 +243,7 @@ public class Utils {
 	 * @return IntSupplier
 	 */
 	public static IntSupplier mirror(final Integer value) {
-		return new IntSupplier() {
-
-			@Override
-			public int getAsInt() {
-
-				return value;
-			}
-		};
+		return () -> value;
 	}
 
 	/**
@@ -262,7 +255,7 @@ public class Utils {
 		try {
 			Thread.sleep(millis);
 		} catch (InterruptedException e) {
-			System.err.println(e.getMessage());
+			LOGGER.error(e.getMessage());
 		}
 	}
 }
