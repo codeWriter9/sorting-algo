@@ -2,7 +2,7 @@ package org.ghosh.sanjay.algos;
 
 /**
  * 
- * 
+ * Encapsulation Class to hold order-ables 
  * 
  * 
  * @author Sanjay Ghosh
@@ -24,6 +24,7 @@ public class Data<T extends Comparable<T>> {
 			throw new IllegalArgumentException("parameter is null");
 		this.data = data;
 	}
+	
 	
 	/**
 	 * 
