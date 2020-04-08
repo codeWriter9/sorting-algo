@@ -224,7 +224,7 @@ public class Utils {
 	 * @return Consumer<String>
 	 */
 	public static Consumer<String> printConsumer() {
-		return System.out::println;
+		return LOGGER::info;
 	}
 
 	/**
